@@ -7,34 +7,60 @@ void main() {
 }
 
 /// [Widget] building the [MaterialApp].
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Dock<IconData>(
-            items: const [
-              Icons.person,
-              Icons.message,
-              Icons.call,
-              Icons.camera,
-              Icons.photo,
-            ],
-            builder: (e) {
-              return Container(
-                constraints: const BoxConstraints(minWidth: 48),
-                height: 48,
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.primaries[e.hashCode % Colors.primaries.length],
-                ),
-                child: Center(child: Icon(e, color: Colors.white)),
+
+          child: DragTarget<IconData>(
+            onLeave: (det){
+              print('$det .....');
+            },
+            builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
+
+
+
+
+              return  Dock<IconData>(
+                items: const [
+                  Icons.person,
+                  Icons.message,
+                  Icons.call,
+                  Icons.camera,
+                  Icons.photo,
+                ],
+                builder: (e) {
+                  return Container(
+                    constraints: const BoxConstraints(minWidth: 48),
+                    height: 48,
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.primaries[e.hashCode % Colors.primaries.length],
+                    ),
+                    child: Center(child: Icon(e, color: Colors.white)),
+                  );
+                },
               );
             },
+            // child:
+
           ),
         ),
       ),
